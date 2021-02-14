@@ -1,0 +1,57 @@
+[
+    {
+      "model": "Product.Product",
+      "pk" : 1,
+      "fields": {
+        "productId": 1,
+        "productName": "iPhone 8",
+        "productPrice": "30000"
+      }
+    },
+    {
+      "model": "Product.Product",
+      "pk" : 2,
+      "fields": {
+        "productId": 2,
+        "productName": "Samsung J8",
+        "productPrice": "15000"
+      }
+    },
+    {
+        "model": "Product.Product",
+        "pk" : 3,
+        "fields": {
+          "productId": 3,
+          "productName": "Redmi 8",
+          "productPrice": "12000"
+        }
+    },
+    {
+    "model": "Product.Product",
+    "pk" : 4,
+    "fields": {
+        "productId": 4,
+        "productName": "Sony 8",
+        "productPrice": "20000"
+    }
+    },
+    {
+    "model": "Product.Product",
+    "pk" : 5,
+    "fields": {
+        "productId": 5,
+        "productName": "Vivo 8",
+        "productPrice": "13000"
+    }
+    },
+    {
+        "model": "Product.Product",
+        "pk" : 6,
+        "fields": {
+            "productId": 6,
+            "productName": "Micromax 8",
+            "productPrice": "22000"
+        }
+    }
+
+  ]

@@ -1,0 +1,94 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Django with Stripe</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.2/css/bulma.min.css">
+    <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <!-- <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script> -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script src="https://polyfill.io/v3/polyfill.min.js?version=3.52.1&features=fetch"></script>
+    <script src="https://js.stripe.com/v3/"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" ></script>
+
+    <style>
+      .container {
+            max-width: 960px;
+        }
+    </style>
+
+  </head>
+  <body>
+    <section class="section">
+      <div class="product">
+          <div class="container">
+            <div class="row pt-5">
+                {% for row in count %}
+                      {% for column in dict_Data %}
+                          {% if row == column.productId %}
+                          <div class="col-md-4">
+                            <figure class="card card-product-grid p-3">
+                              <div class="img-wrap">
+                                <span class="badge badge-danger"> NEW </span>
+                              </div>
+                              <figcaption class="info-wrap">
+                                <div class="fix-height">
+                                  <a href="#" class="title">{{ column.productName }}</a>
+                                  <div class="price-wrap mt-3 mb-4">
+                                    <span class="price"> Rs. {{ column.productPrice }}</span>
+                                  </div>
+                                </div>
+                                <button class="btn btn-block btn-primary buyNow" id="check-out-btn" value={{column.productId}} > Buy Now </button>
+                              </figcaption>
+                            </figure>
+                          </div>
+                          {% endif %}
+                      {% endfor %}
+                {% endfor %}
+          </div>
+        </div>
+        </div>
+    </section>
+    {% csrf_token %}
+  </body>
+
+<script>
+
+$('.buyNow').click(function()
+  {
+      var productId = $(this).val();
+      // alert(productId);
+      var stripe = Stripe("{{ key }}");
+      var key = "{{ key }}"
+      // alert(key);
+      var data = {'productId':productId};
+
+      $.ajax({
+        url: "/check_Out",
+        type: "POST",
+        dataType : "json",
+        context: this,
+        contentType : "application/json",
+        data: JSON.stringify(data),
+        success: function (result)
+        {
+          stripe.redirectToCheckout({ sessionId: result.id })
+          .then(function (result) {
+            // stripe.redirectToCheckout({ sessionId: result.id });
+          });
+
+        }
+      });
+  });
+
+
+</script>
+
+
+</html>
